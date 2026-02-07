@@ -28,36 +28,6 @@ This implementation showcases the core concepts of the Raft algorithm:
 5. **Replication**: Leader replicates log entries to all followers
 6. **Heartbeat**: Leader sends heartbeats to maintain authority
 
-## Getting Started
-
-### Prerequisites
-
-- Rust 1.70+ (edition 2024)
-- Cargo package manager
-
-### Installation
-
-```bash
-git clone <repository-url>
-cd raft
-cargo build
-```
-
-### Running the Application
-
-```bash
-cargo run
-```
-
-Example output:
-```
-Node1 state: Candidate
-Total votes: 3
-Node 1 becomes LEADER
-Node 1 log: [LogEntry { term: 1, command: "set x=10" }, LogEntry { term: 1, command: "set y=20" }]
-Node 2 log: [LogEntry { term: 1, command: "set x=10" }, LogEntry { term: 1, command: "set y=20" }]
-Node 3 log: [LogEntry { term: 1, command: "set x=10" }, LogEntry { term: 1, command: "set y=20" }]
-```
 
 ## Project Structure
 
@@ -91,7 +61,7 @@ src/
 - `Candidate` - Contesting in an election
 - `Leader` - Manages the cluster and handles client requests
 
-## Limitations
+
 
 This is a simplified implementation for educational purposes:
 
@@ -110,18 +80,6 @@ This is a simplified implementation for educational purposes:
 - Log compaction
 - Cluster membership changes
 - More robust testing
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
