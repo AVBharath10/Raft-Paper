@@ -1,4 +1,4 @@
-use raft::node::Node;
+use raft::node::{Node, RequestVoteArgs};
 
 fn main() {
     let mut nodes = vec![Node::new(1), Node::new(2), Node::new(3)];
@@ -12,7 +12,16 @@ fn main() {
     let mut votes = 1;
 
     for i in 1..nodes.len() {
-        if nodes[i].request_vote(term) {
+        let args = RequestVoteArgs {
+            term,
+            candidate_id: nodes[0].id,
+            last_log_index: nodes[0].log.len() as u64,
+            last_log_term: nodes[0].log.last().map(|e| e.term).unwrap_or(0),
+        };
+
+        let reply = nodes[i].request_vote(args);
+
+        if reply.vote_granted {
             votes += 1;
         }
     }

@@ -15,6 +15,18 @@ pub struct LogEntry {
     pub term: u64,
     pub command: String,
 }
+#[derive(Debug)]
+pub struct RequestVoteArgs {
+    pub term: u64,
+    pub candidate_id: u64,
+    pub last_log_index: u64,
+    pub last_log_term: u64,
+}
+#[derive(Debug)]
+pub struct RequestVoteReply {
+    pub term: u64,
+    pub vote_granted: bool,
+}
 
 impl Node {
     pub fn new(id: u64) -> Self {
@@ -39,13 +51,43 @@ impl Node {
         self.become_candidate();
     }
 
-    pub fn request_vote(&self, candidate_term: u64) -> bool {
-        if candidate_term >= self.current_term {
-            true
+    pub fn request_vote(&mut self, args: RequestVoteArgs) -> RequestVoteReply {
+        if args.term < self.current_term {
+            return RequestVoteReply {
+                term: self.current_term,
+                vote_granted: false,
+            };
+        }
+
+        if args.term > self.current_term {
+            self.current_term = args.term;
+            self.voted_for = None;
+            self.state = State::Follower;
+        }
+
+        let not_voted_yet = self.voted_for.is_none() || self.voted_for == Some(args.candidate_id);
+
+        let my_last_term = self.last_log_term();
+        let my_last_index = self.last_log_index();
+
+        let candidate_up_to_date = (args.last_log_term > my_last_term)
+            || (args.last_log_term == my_last_term && args.last_log_index >= my_last_index);
+
+        if not_voted_yet && candidate_up_to_date {
+            self.voted_for = Some(args.candidate_id);
+
+            RequestVoteReply {
+                term: self.current_term,
+                vote_granted: true,
+            }
         } else {
-            false
+            RequestVoteReply {
+                term: self.current_term,
+                vote_granted: false,
+            }
         }
     }
+
     pub fn become_leader(&mut self) {
         self.state = State::Leader;
     }
@@ -81,6 +123,20 @@ impl Node {
                     node.replicate_entry(entry.clone(), self.current_term);
                 }
             }
+        }
+    }
+    pub fn last_log_index(&self) -> u64 {
+        if self.log.is_empty() {
+            0
+        } else {
+            (self.log.len() - 1) as u64
+        }
+    }
+    pub fn last_log_term(&self) -> u64 {
+        if self.log.is_empty() {
+            0
+        } else {
+            self.log.last().unwrap().term
         }
     }
 }
