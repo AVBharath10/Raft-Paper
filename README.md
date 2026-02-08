@@ -28,6 +28,7 @@ This implementation showcases the core concepts of the Raft algorithm:
 5. **Replication**: Leader replicates log entries to all followers
 6. **Heartbeat**: Leader sends heartbeats to maintain authority
 
+
 ## Project Structure
 
 ```
@@ -61,6 +62,7 @@ src/
 - `Leader` - Manages the cluster and handles client requests
 
 
+
 This is a simplified implementation for educational purposes:
 
 - No persistent storage (all state is in-memory)
@@ -84,5 +86,8 @@ This is a simplified implementation for educational purposes:
 Based on the original Raft paper: ["In Search of an Understandable Consensus Algorithm"](https://raft.github.io/raft.pdf) by Diego Ongaro and John Ousterhout.
 
 ---
+
+<!-- View Counter -->
+👥 **Views:** ![Views](https://api.visitorbadge.io/api/combined?user=your-username&repo=raft&labelColor=%23555555&countColor=%2300aaff&style=flat-square)
 
 *Last updated: February 2026*
