@@ -1,6 +1,6 @@
 # Raft Consensus Algorithm Implementation
 
-A simple implementation of the Raft consensus algorithm in Rust, demonstrating leader election, log replication, and basic consensus mechanisms.
+A simple implementation of the Raft consensus algorithm in Rust, demonstrating leader election, log replication, and basic consensus mechanisms
 
 ## Overview
 
