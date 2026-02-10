@@ -4,27 +4,29 @@ A simplified implementation of the Raft consensus algorithm in Rust, demonstrati
 
 ## Implemented Features
 
-- Leader election with majority voting  
-- Log replication from leader to followers  
-- Heartbeat mechanism  
-- Randomized election timeouts  
-- State transitions: Follower, Candidate, Leader  
-- Basic Raft safety guarantees  
-- Test suite for core functionality  
+- Leader election with majority voting
+- Log replication from leader to followers
+- Heartbeat mechanism
+- Randomized election timeouts
+- State transitions: Follower, Candidate, Leader
+- Basic Raft safety guarantees
+- Test suite for core functionality
 
 ## Running
 
+```bash
 cargo run
 cargo test
 cargo build
+```
 
 ## What This Demonstrates
 
-- How elections are triggered and leaders are chosen  
-- How logs are replicated across nodes  
-- How AppendEntries ensures log consistency  
-- How heartbeats maintain leadership  
-- How terms control leader changes  
+- How elections are triggered and leaders are chosen
+- How logs are replicated across nodes
+- How AppendEntries ensures log consistency
+- How heartbeats maintain leadership
+- How terms control leader changes
 
 ### Project Structure
 
@@ -40,5 +42,5 @@ src/
 
 ## Reference
 
-Based on the Raft paper:  
-"In Search of an Understandable Consensus Algorithm" – Diego Ongaro, John Ousterhout
+Based on the Raft paper:
+["In Search of an Understandable Consensus Algorithm"](https://raft.github.io/raft.pdf) – Diego Ongaro, John Ousterhout
